@@ -5,7 +5,14 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from dotenv import load_dotenv
 
 load_dotenv()  # Load all the environment variables
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+if (os.getenv("GOOGLE_API_KEY") is not None):
+    print("GOOGLE_API_KEY is present")
+    genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+else:
+    print("GOOGLE_API_KEY is not present in env file")
+    genai.configure(api_key="GOOGLE_API_KEY")
+
 
 default_prompt = """You are YouTube video summarizer. You will be taking the transcript text
 and summarizing the entire video and providing the important summary in points
